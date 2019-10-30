@@ -10,6 +10,7 @@ set(utilityHeaders
 	${currentDir}/EnumTools.hpp
 	${currentDir}/Singleton.hpp
 	${currentDir}/Plugin.hpp
+	${currentDir}/ContentLoader.hpp
 	
 	PARENT_SCOPE
 )

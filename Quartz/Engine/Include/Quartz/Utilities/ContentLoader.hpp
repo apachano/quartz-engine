@@ -28,10 +28,29 @@
 
 #pragma once
 
+#include <string>
+#include <array>
+#include <fstream>
+#include <queue>
+#include <filesystem>
+#include <sol/sol.hpp>
+
 namespace qz
 {
     namespace utils
     {
         void loadLua();
+
+        struct Mod{
+            std::string m_name;
+            std::string m_version;
+            std::array<std::string, 100> m_dependencies;
+
+            Mod(std::string name);
+            ~Mod();
+
+            bool exists();
+        }
     }
+    
 }

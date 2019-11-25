@@ -50,7 +50,7 @@ namespace qz
             ~Mod();
 
             bool exists();
-        }
-    }
+        };
+    };
     
 }

@@ -37,52 +37,46 @@ Mod::Mod(std::string name)
 Mod::~Mod(){};
 
 bool Mod::exists(){
-
+    
 }
 
 void loadLua(std::string save){
+    sol::state lua;
     std::fstream fileStream;
     std::queue<Mod> loadedMods;  //What dependencies are already satisfied
+    std::queue<Mod> toLoad; //A queue of mods that need loaded
 
     //Holding off on making games a functional feature for now
-
     /*fileStream.open("save/" + save + "/about.txt");
-
     fileStream.close();*/
 
     fileStream.open("save/" + save + "/mods.txt");
 
     //Check if mods exist and load into array for sorting
-
-    std::queue<Mod> toLoad;
-
-    while (fileStream.peek() != ' '){}
+    while (fileStream.peek() != ' '){
         std::string input;
         std::getline(fileStream, input);
         Mod mod = Mod(input);
-        if(!mod.exist()){throw "Mod does not exist" + mod.m_name;} //Should never happen if launcher does all the work but lets check anyways
-        toLoad.push(mod)
+        if(!mod.exists()){throw "Mod does not exist" + mod.m_name;} //Should never happen if launcher does all the work but lets check anyways
+        toLoad.push(mod);
     }
 
     //Sort and load the mods :/ I am sure I learned a better sort method in college lol
-
-    while(loLoad.size() > 0){
+    while(toLoad.size() > 0){
         int lastPass = toLoad.size();
-        for (int i = 0, i < toLoad.size(), i++){
+        for (int i = 0; i < toLoad.size(); i++){
+            Mod mod = Mod(toLoad.pop());
+            for (int j = 0; j < 100; j++){
+                if(mod.m_dependencies[j] is not in queue){break;}
+                                
+            }
             if(mod dependencies are in Satisfied[]){
                 add mod to satisfied[]
-                sol(mod) //Probably check for an error here and return an exception
+                lua.script_file("modules/" + mod.m_name + "/init.lua");
             }
         }
         if (lastPass == toLoad.size()){
             throw "One or more mods are missing required dependencies";
         }
     }
-
-    //Launch
-
-    sol::state lua;
-    lua.script_file("");
-}
-
 }

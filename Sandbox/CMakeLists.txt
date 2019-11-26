@@ -10,6 +10,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${dependencies}/SDL2/include 
     ${dependencies}/../Quartz/Engine/Include 
     ${dependencies}/imgui/include
-    ${dependencies}/luajit/include
+    ${dependencies}/luajit/src
     ${dependencies}/sol2/include)
 target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_CURRENT_LIST_DIR}/Include)

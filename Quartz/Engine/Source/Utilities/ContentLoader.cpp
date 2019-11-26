@@ -32,49 +32,69 @@ using namespace qz::utils;
 
 Mod::Mod(std::string name)
     : m_name(name)
-{};
+{
+    std::fstream fileStream;
+    fileStream.open("mods/" + name + "/dependencies.txt");
+    while (fileStream.peek() != ' '){
+        std::string input;
+        std::getline(fileStream, input);
+        m_dependencies.push_back(input);
+    }
+    fileStream.close();
+};
 
 Mod::~Mod(){};
 
 bool Mod::exists(){
-    
+    return true; //TODO make this actually check for mod
 }
 
 void loadLua(std::string save){
     sol::state lua;
     std::fstream fileStream;
-    std::queue<Mod> loadedMods;  //What dependencies are already satisfied
     std::queue<Mod> toLoad; //A queue of mods that need loaded
 
-    //Holding off on making games a functional feature for now
+    //Holding off on making games a functional feature for now but they would load first
     /*fileStream.open("save/" + save + "/about.txt");
     fileStream.close();*/
 
-    fileStream.open("save/" + save + "/mods.txt");
-
     //Check if mods exist and load into array for sorting
+    fileStream.open("save/" + save + "/mods.txt");
     while (fileStream.peek() != ' '){
         std::string input;
         std::getline(fileStream, input);
         Mod mod = Mod(input);
-        if(!mod.exists()){throw "Mod does not exist" + mod.m_name;} //Should never happen if launcher does all the work but lets check anyways
+        if(!mod.exists()){throw "Mod does not exist" + mod.m_name;}; //Should never happen if launcher does all the work but lets check anyways
         toLoad.push(mod);
     }
+    fileStream.close();
 
-    //Sort and load the mods :/ I am sure I learned a better sort method in college lol
+    //Sort and load the mods
+    std::vector<std::string> loadedMods;
     while(toLoad.size() > 0){
         int lastPass = toLoad.size();
-        for (int i = 0; i < toLoad.size(); i++){
-            Mod mod = Mod(toLoad.pop());
-            for (int j = 0; j < 100; j++){
-                if(mod.m_dependencies[j] is not in queue){break;}
-                                
+        //For each mod that needs loaded
+        for (int i = 0; i < toLoad.size(); i++){ 
+            Mod mod = toLoad.front();
+            bool satisfied = true;
+            //For each dependency the mod has
+            for (int j = 0; j < mod.m_dependencies.size(); j++){ 
+                //If dependency is not satisfied, mark satisfied as false.
+                if (std::find(loadedMods.begin(), loadedMods.end(), mod.m_dependencies[j]) == loadedMods.end()){
+                    satisfied = false;
+                }
             }
-            if(mod dependencies are in Satisfied[]){
-                add mod to satisfied[]
+            //If all dependencies were met, run lua and add mod to satisfied list
+            //Otherwise, move mod to back of load queue
+            if(satisfied){
                 lua.script_file("modules/" + mod.m_name + "/init.lua");
+                loadedMods.push_back(mod.m_name);
+            }else{
+                toLoad.push(toLoad.front());
             }
+            toLoad.pop();
         }
+        //If we haven't loaded any new mods, throw error
         if (lastPass == toLoad.size()){
             throw "One or more mods are missing required dependencies";
         }

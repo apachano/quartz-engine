@@ -39,18 +39,18 @@ namespace qz
 {
     namespace utils
     {
-        void loadLua();
-
         struct Mod{
             std::string m_name;
             std::string m_version;
-            std::array<std::string, 100> m_dependencies;
+            std::vector<std::string> m_dependencies;
 
             Mod(std::string name);
             ~Mod();
 
             bool exists();
         };
+
+        void loadLua(std::string save);
     };
     
 }

@@ -18,7 +18,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	${dependencies}/glad/include 
 	${dependencies}/stb_image 
 	${dependencies}/imgui/include
-	${dependencies}/luajit/include
+	${dependencies}/luajit/src
 	${dependencies}/sol2/include
 	${CMAKE_CURRENT_LIST_DIR}/Include
 )

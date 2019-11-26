@@ -1,5 +1,13 @@
 #include <iostream>
+#include <ContentLoader.hpp>
 
 int main(){
-    std::cout << "Hello world";
+    try
+    {
+        qz::utils::loadLua("save1");
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << e.what() << '\n';
+    }
 }

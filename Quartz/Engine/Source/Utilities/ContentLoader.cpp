@@ -30,7 +30,7 @@
 
 using namespace qz::utils;
 
-Mod::Mod(std::string name)
+/*Mod::Mod(std::string name)
     : m_name(name)
 {
     std::fstream fileStream;
@@ -47,29 +47,29 @@ Mod::~Mod(){};
 
 bool Mod::exists(){
     return true; //TODO make this actually check for mod
-}
+}*/
 
-void loadLua(std::string save){
+bool loadLua(std::string save){
     // sol::state lua;
-    std::fstream fileStream;
-    std::queue<Mod> toLoad; //A queue of mods that need loaded
+    /*std::fstream fileStream;
+    std::queue<Mod> toLoad; //A queue of mods that need loaded*/
 
     //Holding off on making games a functional feature for now but they would load first
     /*fileStream.open("save/" + save + "/about.txt");
     fileStream.close();*/
 
     //Check if mods exist and load into array for sorting
-    fileStream.open("save/" + save + "/mods.txt");
+/*    fileStream.open("save/" + save + "/mods.txt");
     while (fileStream.peek() != ' '){
         std::string input;
         std::getline(fileStream, input);
         Mod mod = Mod(input);
-        if(!mod.exists()){throw "Mod does not exist" + mod.m_name;}; //Should never happen if launcher does all the work but lets check anyways
+        if(!mod.exists()){std::cout << "Mod does not exist" + mod.m_name; return false;}; //Should never happen if launcher does all the work but lets check anyways
         toLoad.push(mod);
     }
-    fileStream.close();
+    fileStream.close();*/
 
-    //Sort and load the mods
+/*    //Sort and load the mods
     std::vector<std::string> loadedMods;
     while(toLoad.size() > 0){
         int lastPass = toLoad.size();
@@ -97,7 +97,9 @@ void loadLua(std::string save){
         }
         //If we haven't loaded any new mods, throw error
         if (lastPass == toLoad.size()){
-            throw "One or more mods are missing required dependencies";
+            std::cout << "One or more mods are missing required dependencies";
+            return false;
         }
-    }
+    }*/
+    return true;
 }

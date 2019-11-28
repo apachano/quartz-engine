@@ -2,12 +2,9 @@
 #include <Quartz/Utilities/ContentLoader.hpp>
 
 int main(){
-    try
-    {
-        qz::utils::loadLua("save1");
-    }
-    catch(const std::exception& e)
-    {
-        std::cout << e.what() << '\n';
+    if(qz::utils::loadLua("save1")){
+        std::cout << "Mods loaded";
+    } else {
+        std::cout << "Something failed";
     }
 }

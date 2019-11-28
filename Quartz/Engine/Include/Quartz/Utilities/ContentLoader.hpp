@@ -29,18 +29,18 @@
 #pragma once
 
 #include <string>
-#include <array>
-#include <fstream>
-#include <queue>
-#include <filesystem>
+//#include <array>
+//#include <fstream>
+//#include <queue>
+//#include <filesystem>
 //#include <sol/sol.hpp>
-#include <iostream>
+//#include <iostream>
 
 namespace qz
 {
     namespace utils
     {
-        struct Mod{
+        /*struct Mod{
             std::string m_name;
             std::string m_version;
             std::vector<std::string> m_dependencies;
@@ -49,9 +49,9 @@ namespace qz
             ~Mod();
 
             bool exists();
-        };
+        };*/
 
-        void loadLua(std::string save);
+        bool loadLua(std::string save);
     };
     
 }

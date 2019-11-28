@@ -33,7 +33,8 @@
 #include <fstream>
 #include <queue>
 #include <filesystem>
-#include <sol/sol.hpp>
+//#include <sol/sol.hpp>
+#include <iostream>
 
 namespace qz
 {

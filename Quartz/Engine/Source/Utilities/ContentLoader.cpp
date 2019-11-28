@@ -50,7 +50,7 @@ bool Mod::exists(){
 }
 
 void loadLua(std::string save){
-    sol::state lua;
+    // sol::state lua;
     std::fstream fileStream;
     std::queue<Mod> toLoad; //A queue of mods that need loaded
 
@@ -87,7 +87,8 @@ void loadLua(std::string save){
             //If all dependencies were met, run lua and add mod to satisfied list
             //Otherwise, move mod to back of load queue
             if(satisfied){
-                lua.script_file("modules/" + mod.m_name + "/init.lua");
+                //lua.script_file("modules/" + mod.m_name + "/init.lua");
+                std::cout << "loaded" + mod.m_name;
                 loadedMods.push_back(mod.m_name);
             }else{
                 toLoad.push(toLoad.front());
